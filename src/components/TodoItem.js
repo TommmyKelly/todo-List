@@ -67,7 +67,7 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
 const TodoComponentChecked = {
   width: "100%",
   margin: "30px auto",
-  backgroundColor: "green",
+  backgroundColor: "#61CF93",
 };
 
 const TodoComponent = {

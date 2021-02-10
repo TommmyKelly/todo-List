@@ -60,7 +60,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header todos={todos} />
       <Container>
         <UpdateModal
           show={show}
