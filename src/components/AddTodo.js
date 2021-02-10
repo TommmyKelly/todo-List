@@ -17,6 +17,7 @@ const AddTodo = ({ setTodos }) => {
       completed: false,
     };
     setTodos((prevState) => [newTodo, ...prevState]);
+
     Inputref.current.value = "";
   };
 
@@ -31,7 +32,7 @@ const AddTodo = ({ setTodos }) => {
         />
 
         <Button className='ml-1' variant='primary' onClick={AddNewTodo}>
-          <i class='fas fa-plus-square'></i>
+          <i className='fas fa-plus-square'></i>
         </Button>
       </Card.Body>
     </Card>

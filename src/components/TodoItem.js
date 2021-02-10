@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 
-const TodoItem = ({ todo, setTodos }) => {
+const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
   //DELETE TODO
   const deleteTodo = (todoToDelete) => {
     setTodos((prevState) =>
@@ -25,6 +25,14 @@ const TodoItem = ({ todo, setTodos }) => {
     );
   };
 
+  //GET EDIT TODO IF AND SHOW MODAL
+
+  const onClick = (item) => {
+    setTodoId(item.id);
+    setTodoEditText(item.todo);
+    setShow(true);
+  };
+
   return (
     <Card
       className={"my-1 rounded "}
@@ -33,7 +41,7 @@ const TodoItem = ({ todo, setTodos }) => {
       <Card.Body className='d-flex justify-content-center align-items-center'>
         <input
           type='checkbox'
-          value={todo.completed}
+          checked={todo.completed}
           name=''
           id=''
           onChange={() => onChange(todo)}
@@ -41,7 +49,7 @@ const TodoItem = ({ todo, setTodos }) => {
         <span className='ml-3' style={{ flexGrow: 1 }}>
           {todo.todo}
         </span>
-        <Button variant='success'>
+        <Button variant='success' onClick={() => onClick(todo)}>
           <i className='fas fa-edit'></i>
         </Button>
         <Button
