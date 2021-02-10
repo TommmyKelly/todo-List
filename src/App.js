@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import TodoItem from "./components/TodoItem";
 import "./App.css";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 import AddTodo from "./components/AddTodo";
 import UpdateModal from "./components/UpdateModal";
@@ -70,7 +70,10 @@ function App() {
           TodoEditText={TodoEditText}
         />
         <AddTodo setTodos={setTodos} />
-        <FlipMove>
+        <FlipMove
+          enterAnimation='accordionHorizontal'
+          leaveAnimation='accordionHorizontal'
+        >
           {todos.map((todo) => (
             <div style={{ width: "100%" }} key={todo.id}>
               <TodoItem

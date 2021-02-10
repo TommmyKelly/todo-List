@@ -11,7 +11,7 @@ const AddTodo = ({ setTodos }) => {
   };
 
   const AddNewTodo = () => {
-    if (Inputref.current.value == "") return;
+    if (Inputref.current.value === "") return;
     const newTodo = {
       id: Date.now(),
       todo: input,
