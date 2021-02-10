@@ -34,11 +34,16 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
   };
 
   return (
-    <Card
-      className={"my-1 rounded "}
-      style={todo.completed ? TodoComponentChecked : TodoComponent}
-    >
-      <Card.Body className='d-flex justify-content-center align-items-center'>
+    <div style={todo.completed ? TodoComponentChecked : TodoComponent}>
+      <div
+        style={{
+          border: "1px solid #DFDFDF",
+          padding: "12px",
+          display: "flex",
+          alignItems: "center",
+          borderRadius: "2px",
+        }}
+      >
         <input
           type='checkbox'
           checked={todo.completed}
@@ -46,21 +51,23 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
           id=''
           onChange={() => onChange(todo)}
         />
-        <span className='ml-3' style={{ flexGrow: 1 }}>
+        <div style={{ overflowWrap: "anywhere" }} className='ml-3'>
           {todo.todo}
+        </div>
+        <span style={{ marginLeft: "auto", display: "flex" }}>
+          <Button variant='success' onClick={() => onClick(todo)}>
+            <i className='fas fa-edit'></i>
+          </Button>
+          <Button
+            className='ml-1'
+            variant='danger'
+            onClick={() => deleteTodo(todo)}
+          >
+            <i className='fas fa-trash-alt'></i>
+          </Button>
         </span>
-        <Button variant='success' onClick={() => onClick(todo)}>
-          <i className='fas fa-edit'></i>
-        </Button>
-        <Button
-          className='ml-1'
-          variant='danger'
-          onClick={() => deleteTodo(todo)}
-        >
-          <i className='fas fa-trash-alt'></i>
-        </Button>
-      </Card.Body>
-    </Card>
+      </div>
+    </div>
   );
 };
 

@@ -72,7 +72,7 @@ function App() {
         <AddTodo setTodos={setTodos} />
         <FlipMove>
           {todos.map((todo) => (
-            <Row key={todo.id} className={"mx-auto"}>
+            <div style={{ width: "100%" }} key={todo.id}>
               <TodoItem
                 todo={todo}
                 setTodos={setTodos}
@@ -82,7 +82,7 @@ function App() {
                 setTodoId={setTodoId}
                 setTodoEditText={setTodoEditText}
               />
-            </Row>
+            </div>
           ))}
         </FlipMove>
       </Container>
