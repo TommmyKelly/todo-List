@@ -51,7 +51,10 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
           id=''
           onChange={() => onChange(todo)}
         />
-        <div style={{ overflowWrap: "anywhere" }} className='ml-3'>
+        <div
+          style={{ overflowWrap: "anywhere", marginRight: "3px" }}
+          className='ml-3'
+        >
           {todo.todo}
         </div>
         <span style={{ marginLeft: "auto", display: "flex" }}>
