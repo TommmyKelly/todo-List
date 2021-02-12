@@ -1,37 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import { Button } from "react-bootstrap";
+import TodoContext from "../context/TodosContext";
 
-const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
-  //DELETE TODO
-  const deleteTodo = (todoToDelete) => {
-    setTodos((prevState) =>
-      prevState.filter((td) => td.id !== todoToDelete.id)
-    );
-  };
+const TodoItem = ({ todo }) => {
+  const todoContext = useContext(TodoContext);
 
-  //UPDATE CHECKED TODO
-  const onChange = (CheckedTodo) => {
-    setTodos((prevState) =>
-      prevState.map((td) =>
-        td.id === CheckedTodo.id
-          ? {
-              id: CheckedTodo.id,
-              todo: CheckedTodo.todo,
-              completed: !td.completed,
-            }
-          : td
-      )
-    );
-  };
-
-  //GET EDIT TODO IF AND SHOW MODAL
-
-  const onClick = (item) => {
-    setTodoId(item.id);
-    setTodoEditText(item.todo);
-    setShow(true);
-  };
+  const { deleteTodo, checkedTodos, showModal } = todoContext;
 
   return (
     <div style={todo.completed ? TodoComponentChecked : TodoComponent}>
@@ -49,7 +23,7 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
           checked={todo.completed}
           name=''
           id=''
-          onChange={() => onChange(todo)}
+          onChange={() => checkedTodos(todo.id)}
         />
         <div
           style={{ overflowWrap: "anywhere", marginRight: "3px" }}
@@ -58,13 +32,13 @@ const TodoItem = ({ todo, setTodos, setShow, setTodoId, setTodoEditText }) => {
           {todo.todo}
         </div>
         <span style={{ marginLeft: "auto", display: "flex" }}>
-          <Button variant='success' onClick={() => onClick(todo)}>
+          <Button variant='success' onClick={() => showModal(todo)}>
             <i className='fas fa-edit'></i>
           </Button>
           <Button
             className='ml-1'
             variant='danger'
-            onClick={() => deleteTodo(todo)}
+            onClick={() => deleteTodo(todo.id)}
           >
             <i className='fas fa-trash-alt'></i>
           </Button>
@@ -83,10 +57,6 @@ const TodoComponentChecked = {
 const TodoComponent = {
   width: "100%",
   margin: "30px auto",
-};
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
-  setTodos: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

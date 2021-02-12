@@ -1,8 +1,12 @@
-import React, { useState, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useRef, useContext } from "react";
 import { Button, Card } from "react-bootstrap";
+import TodosContext from "../context/TodosContext";
 
-const AddTodo = ({ setTodos }) => {
+const AddTodo = () => {
+  const todosContext = useContext(TodosContext);
+
+  const { addTodo } = todosContext;
+
   const [input, setInput] = useState("");
 
   const Inputref = useRef(null);
@@ -17,8 +21,8 @@ const AddTodo = ({ setTodos }) => {
       todo: input,
       completed: false,
     };
-    setTodos((prevState) => [newTodo, ...prevState]);
 
+    addTodo(newTodo);
     Inputref.current.value = "";
   };
 
@@ -39,10 +43,6 @@ const AddTodo = ({ setTodos }) => {
       </Card.Body>
     </Card>
   );
-};
-
-AddTodo.propTypes = {
-  setTodos: PropTypes.func.isRequired,
 };
 
 export default AddTodo;

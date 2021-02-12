@@ -1,94 +1,23 @@
-import { useState, useEffect } from "react";
-import TodoItem from "./components/TodoItem";
+import React from "react";
+import Todos from "./components/Todos";
 import "./App.css";
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 import AddTodo from "./components/AddTodo";
 import UpdateModal from "./components/UpdateModal";
-import FlipMove from "react-flip-move";
+import TodosState from "./context/TodosState";
 
 function App() {
-  const [todos, setTodos] = useState([
-    // {
-    //   id: 1,
-    //   todo: "test",
-    //   completed: false,
-    // },
-    // { id: 2, todo: "test 2", completed: false },
-    // { id: 3, todo: "test 3", completed: false },
-  ]);
-
-  //GET FROM LOCAL STORAGE
-
-  useEffect(() => {
-    if (localStorage.hasOwnProperty("todos")) {
-      const storedTodos = JSON.parse(localStorage.getItem("todos"));
-      setTodos(storedTodos);
-    }
-  }, []);
-
-  //ADD TODOS TO LOCAL STORAE
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  //UPDATE TODO
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [modalInput, setModalInput] = useState("");
-  const [TodoId, setTodoId] = useState(null);
-  const [TodoEditText, setTodoEditText] = useState("");
-
-  const updateModal = () => {
-    setTodos((prevState) =>
-      prevState.map((td) =>
-        td.id === TodoId
-          ? {
-              id: td.id,
-              todo: modalInput,
-              completed: td.completed,
-            }
-          : td
-      )
-    );
-    setShow(false);
-  };
-
   return (
     <>
-      <Header todos={todos} />
-      <Container>
-        <UpdateModal
-          show={show}
-          handleClose={handleClose}
-          setModalInput={setModalInput}
-          updateModal={updateModal}
-          TodoEditText={TodoEditText}
-        />
-        <AddTodo setTodos={setTodos} />
-        <FlipMove
-          enterAnimation='accordionHorizontal'
-          leaveAnimation='accordionHorizontal'
-        >
-          {todos.map((todo) => (
-            <div style={{ width: "100%" }} key={todo.id}>
-              <TodoItem
-                todo={todo}
-                setTodos={setTodos}
-                todos={todos}
-                handleShow={handleShow}
-                setShow={setShow}
-                setTodoId={setTodoId}
-                setTodoEditText={setTodoEditText}
-              />
-            </div>
-          ))}
-        </FlipMove>
-      </Container>
+      <TodosState>
+        <Header />
+        <Container>
+          <AddTodo />
+          <Todos />
+          <UpdateModal />
+        </Container>
+      </TodosState>
     </>
   );
 }

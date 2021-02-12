@@ -1,34 +1,30 @@
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import TodoContext from "../context/TodosContext";
 
-const UpdateModal = ({
-  show,
-  handleClose,
-  setModalInput,
-  updateModal,
-  TodoEditText,
-}) => {
+const UpdateModal = () => {
+  const todoContext = useContext(TodoContext);
+
+  const { modal, hideModal, modalText, upDateTodo, ModalID } = todoContext;
+
   const Inputref = useRef(null);
 
+  const [newText, setnewText] = useState("");
+
+  const onChange = () => {
+    setnewText(Inputref.current.value);
+  };
+
   useEffect(() => {
-    if (show) {
-      Inputref.current.value = TodoEditText;
-      Inputref.current.focus();
+    if (modal) {
+      Inputref.current.value = modalText;
+      setnewText(modalText);
     }
     // eslint-disable-next-line
-  }, [show]);
-
-  const onChange = (e) => {
-    setModalInput(e.target.value);
-  };
-
-  const onClick = () => {
-    updateModal();
-  };
+  }, [modal]);
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={modal} onHide={() => hideModal()}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Todo</Modal.Title>
       </Modal.Header>
@@ -37,24 +33,27 @@ const UpdateModal = ({
           ref={Inputref}
           type='text'
           style={{ width: "100%" }}
-          onChange={(e) => onChange(e)}
+          onChange={onChange}
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={handleClose}>
+        <Button variant='secondary' onClick={() => hideModal()}>
           Close
         </Button>
-        <Button variant='primary' onClick={onClick}>
+        <Button
+          variant='primary'
+          onClick={() =>
+            upDateTodo({
+              text: newText,
+              id: ModalID,
+            })
+          }
+        >
           Save Changes
         </Button>
       </Modal.Footer>
     </Modal>
   );
-};
-
-UpdateModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
 };
 
 export default UpdateModal;

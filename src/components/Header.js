@@ -17,7 +17,7 @@ const Header = ({ todos }) => {
             Todo List
           </Navbar.Brand>
           <Navbar.Text>
-            <strong>{todos.length} Todos</strong>
+            {/* <strong>{todos.length} Todos</strong> */}
           </Navbar.Text>
         </Container>
       </Navbar>
