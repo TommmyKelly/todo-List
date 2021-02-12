@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import TodosContext from "../context/TodosContext";
 
-const Header = ({ todos }) => {
+const Header = () => {
+  const todoContext = useContext(TodosContext);
+
   return (
     <>
       <Navbar className='mb-3' bg='dark' variant='dark'>
@@ -17,7 +20,7 @@ const Header = ({ todos }) => {
             Todo List
           </Navbar.Brand>
           <Navbar.Text>
-            {/* <strong>{todos.length} Todos</strong> */}
+            <strong>{todoContext.todos.length} Todos</strong>
           </Navbar.Text>
         </Container>
       </Navbar>
