@@ -54,7 +54,7 @@ const AddTodo = () => {
             style={{ width: "100%", marginRight: "4px" }}
             onInput={(e) => onInput(e)}
             ref={Inputref}
-            placeholder='Add Tood...'
+            placeholder='Add Todo...'
           />
 
           <Button className='ml-1' variant='primary' onClick={AddNewTodo}>
