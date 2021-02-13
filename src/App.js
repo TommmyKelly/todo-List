@@ -70,10 +70,7 @@ function App() {
           TodoEditText={TodoEditText}
         />
         <AddTodo setTodos={setTodos} />
-        <FlipMove
-          enterAnimation='accordionHorizontal'
-          leaveAnimation='accordionHorizontal'
-        >
+        <FlipMove>
           {todos.map((todo) => (
             <div style={{ width: "100%" }} key={todo.id}>
               <TodoItem

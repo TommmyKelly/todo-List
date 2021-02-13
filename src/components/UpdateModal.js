@@ -14,6 +14,7 @@ const UpdateModal = ({
   useEffect(() => {
     if (show) {
       Inputref.current.value = TodoEditText;
+      setModalInput(TodoEditText);
       Inputref.current.focus();
     }
     // eslint-disable-next-line
