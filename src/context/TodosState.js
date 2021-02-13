@@ -31,14 +31,21 @@ const TodosState = (props) => {
     if (localStorage.hasOwnProperty("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
       dispatch({ type: GET_TODOS, payload: storedTodos });
+      console.log(storedTodos);
     }
   };
   // Add todo to Local storage
   const addTodo = (todo) => {
     const savedTodos = JSON.parse(localStorage.getItem("todos"));
-    const newTodos = [todo, ...savedTodos];
+    if (savedTodos === null) {
+      const newTodos = [todo];
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+    } else {
+      const newTodos = [todo, ...savedTodos];
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+    }
+
     dispatch({ type: ADD_CONTACT, payload: todo });
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   // Update todo

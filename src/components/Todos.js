@@ -17,11 +17,12 @@ const Todos = () => {
   return (
     <div>
       <FlipMove>
-        {todos.map((todo) => (
-          <div style={{ width: "100%" }} key={todo.id}>
-            <TodoItem todo={todo} />
-          </div>
-        ))}
+        {todos !== null &&
+          todos.map((todo) => (
+            <div style={{ width: "100%" }} key={todo.id}>
+              <TodoItem todo={todo} />
+            </div>
+          ))}
       </FlipMove>
     </div>
   );

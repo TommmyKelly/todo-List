@@ -15,6 +15,7 @@ export default (state, action) => {
         ...state,
         todos: action.payload,
       };
+
     case ADD_CONTACT:
       return {
         ...state,

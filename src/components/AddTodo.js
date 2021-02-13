@@ -32,7 +32,7 @@ const AddTodo = () => {
   };
 
   return (
-    <>
+    <div>
       <Toast
         style={{ backgroundColor: "pink" }}
         onClose={() => setShow(false)}
@@ -62,7 +62,7 @@ const AddTodo = () => {
           </Button>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 };
 
