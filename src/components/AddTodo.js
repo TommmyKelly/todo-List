@@ -88,7 +88,7 @@ const AddTodo = () => {
             style={{ width: "100%", marginRight: "4px" }}
             onInput={(e) => onInput(e)}
             ref={Inputref}
-            placeholder='Add Todo...'
+            placeholder='Add Todo... / Search Todos...'
             onFocus={() => {
               setFilter(false);
               unfilterCurrent();
