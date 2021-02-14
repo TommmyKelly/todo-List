@@ -56,10 +56,11 @@ export default (state, action) => {
       return {
         ...state,
         filteredResult: true,
-        filtered: state.todos.filter((todo) => {
-          const regex = new RegExp(`${action.payload}`, "gi");
-          return todo.todo.match(regex);
-        }),
+        filtered: state.todos.filter((todo) =>
+          //const regex = new RegExp(`${action.payload}`, "gi");
+          //return todo.todo.match(regex);
+          todo.todo.includes(action.payload)
+        ),
       };
     case CLEAR_FILTER:
       return {
