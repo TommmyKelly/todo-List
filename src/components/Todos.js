@@ -7,7 +7,7 @@ import TodoItem from "./TodoItem";
 const Todos = () => {
   const todosContext = useContext(TodosContext);
 
-  const { todos, getTodos } = todosContext;
+  const { todos, getTodos, filtered } = todosContext;
 
   useEffect(() => {
     getTodos();
@@ -17,12 +17,19 @@ const Todos = () => {
   return (
     <div>
       <FlipMove>
-        {todos !== null &&
-          todos.map((todo) => (
-            <div style={{ width: "100%" }} key={todo.id}>
-              <TodoItem todo={todo} />
-            </div>
-          ))}
+        {filtered.length > 0
+          ? filtered !== null &&
+            filtered.map((todo) => (
+              <div style={{ width: "100%" }} key={todo.id}>
+                <TodoItem todo={todo} />
+              </div>
+            ))
+          : todos !== null &&
+            todos.map((todo) => (
+              <div style={{ width: "100%" }} key={todo.id}>
+                <TodoItem todo={todo} />
+              </div>
+            ))}
       </FlipMove>
     </div>
   );

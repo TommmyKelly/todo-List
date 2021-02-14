@@ -6,6 +6,8 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   UPDATE_TODO,
+  FILTER_TODO,
+  CLEAR_FILTER,
 } from "./types";
 // eslint-disable-next-line
 export default (state, action) => {
@@ -39,6 +41,19 @@ export default (state, action) => {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
+    case FILTER_TODO:
+      return {
+        ...state,
+        filtered: state.todos.filter((todo) => {
+          const regex = new RegExp(`${action.payload}`, "gi");
+          return todo.todo.match(regex);
+        }),
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: [],
       };
     case CHECKED_TODO:
       return {

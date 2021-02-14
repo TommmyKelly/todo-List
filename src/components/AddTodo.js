@@ -4,10 +4,11 @@ import TodosContext from "../context/TodosContext";
 
 const AddTodo = () => {
   const [show, setShow] = useState(false);
+  const [filter, setFilter] = useState(false);
 
   const todosContext = useContext(TodosContext);
 
-  const { addTodo } = todosContext;
+  const { addTodo, filterTodos, unfilter } = todosContext;
 
   const [input, setInput] = useState("");
 
@@ -28,6 +29,21 @@ const AddTodo = () => {
     };
 
     addTodo(newTodo);
+    Inputref.current.value = "";
+  };
+
+  const filterCurrent = () => {
+    if (Inputref.current.value === "") {
+      setShow(true);
+      return;
+    }
+    setFilter(true);
+    filterTodos(Inputref.current.value);
+  };
+
+  const unfilterCurrent = () => {
+    setFilter(false);
+    unfilter();
     Inputref.current.value = "";
   };
 
@@ -60,6 +76,15 @@ const AddTodo = () => {
           <Button className='ml-1' variant='primary' onClick={AddNewTodo}>
             <i className='fas fa-plus-square'></i>
           </Button>
+          {filter ? (
+            <Button className='ml-1' variant='danger' onClick={unfilterCurrent}>
+              <i class='fa fa-times' aria-hidden='true'></i>
+            </Button>
+          ) : (
+            <Button className='ml-1' variant='dark' onClick={filterCurrent}>
+              <i className='fa fa-search' aria-hidden='true'></i>
+            </Button>
+          )}
         </Card.Body>
       </Card>
     </div>

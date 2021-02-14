@@ -5,6 +5,8 @@ import TodosContext from "../context/TodosContext";
 const Header = () => {
   const todoContext = useContext(TodosContext);
 
+  const { todos, filtered } = todoContext;
+
   return (
     <>
       <Navbar className='mb-3' bg='dark' variant='dark'>
@@ -19,9 +21,15 @@ const Header = () => {
             />{" "}
             Todo List
           </Navbar.Brand>
-          <Navbar.Text>
-            <strong>{todoContext.todos.length} Todos</strong>
-          </Navbar.Text>
+          {filtered.length > 0 ? (
+            <Navbar.Text>
+              <strong>{filtered.length} Filtered Todos</strong>
+            </Navbar.Text>
+          ) : (
+            <Navbar.Text>
+              <strong>{todos.length} Todos</strong>
+            </Navbar.Text>
+          )}
         </Container>
       </Navbar>
     </>

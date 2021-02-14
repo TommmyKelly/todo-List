@@ -10,6 +10,8 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   UPDATE_TODO,
+  FILTER_TODO,
+  CLEAR_FILTER,
 } from "./types";
 
 const TodosState = (props) => {
@@ -23,6 +25,8 @@ const TodosState = (props) => {
     ModalID: null,
 
     test: null,
+
+    filtered: [],
   };
 
   const [state, dispatch] = useReducer(TodosReducer, initialState);
@@ -31,7 +35,6 @@ const TodosState = (props) => {
     if (localStorage.hasOwnProperty("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
       dispatch({ type: GET_TODOS, payload: storedTodos });
-      console.log(storedTodos);
     }
   };
   // Add todo to Local storage
@@ -89,6 +92,18 @@ const TodosState = (props) => {
     localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
+  //Filter Todos
+
+  const filterTodos = (filterText) => {
+    dispatch({ type: FILTER_TODO, payload: filterText });
+  };
+
+  //Unfilter
+
+  const unfilter = () => {
+    dispatch({ type: CLEAR_FILTER, payload: null });
+  };
+
   const showModal = (todo) => {
     dispatch({ type: SHOW_MODAL, payload: todo });
   };
@@ -106,6 +121,7 @@ const TodosState = (props) => {
         modalText: state.modalText,
         ModalID: state.ModalID,
         test: state.test,
+        filtered: state.filtered,
         getTodos,
         addTodo,
         deleteTodo,
@@ -113,6 +129,8 @@ const TodosState = (props) => {
         showModal,
         hideModal,
         upDateTodo,
+        filterTodos,
+        unfilter,
       }}
     >
       {props.children}

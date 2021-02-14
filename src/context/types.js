@@ -5,3 +5,5 @@ export const CHECKED_TODO = "CHECKED_TODO";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 export const UPDATE_TODO = "UPDATE_TODO";
+export const FILTER_TODO = "FILTER_TODO";
+export const CLEAR_FILTER = "CLEAR_FILTER";
