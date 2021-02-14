@@ -51,6 +51,7 @@ const AddTodo = () => {
 
   const filterCurrent = () => {
     if (Inputref.current.value === "") {
+      setToastMessage("Whoops, input is blank!");
       setShow(true);
       return;
     }
