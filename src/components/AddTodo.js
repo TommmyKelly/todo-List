@@ -1,14 +1,21 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Button, Card, Toast } from "react-bootstrap";
 import TodosContext from "../context/TodosContext";
 
 const AddTodo = () => {
   const [show, setShow] = useState(false);
   const [filter, setFilter] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const todosContext = useContext(TodosContext);
 
-  const { addTodo, filterTodos, unfilter } = todosContext;
+  const {
+    addTodo,
+    filterTodos,
+    unfilter,
+    filteredResult,
+    filtered,
+  } = todosContext;
 
   const [input, setInput] = useState("");
 
@@ -17,8 +24,18 @@ const AddTodo = () => {
     setInput(e.target.value);
   };
 
+  //Add message if nothing found in filter
+  useEffect(() => {
+    if (filteredResult && filtered.length === 0) {
+      setToastMessage("Whoops, Nothing Found!");
+      setShow(true);
+    }
+    // eslint-disable-next-line
+  }, [filteredResult]);
+
   const AddNewTodo = () => {
     if (Inputref.current.value === "") {
+      setToastMessage("Whoops, input is blank!");
       setShow(true);
       return;
     }
@@ -44,6 +61,7 @@ const AddTodo = () => {
   const unfilterCurrent = () => {
     setFilter(false);
     unfilter();
+    setShow(false);
     Inputref.current.value = "";
   };
 
@@ -61,7 +79,7 @@ const AddTodo = () => {
           <strong className='mr-auto'>Todo List</strong>
           <small>Input missing</small>
         </Toast.Header>
-        <Toast.Body>Whoops, input is blank!</Toast.Body>
+        <Toast.Body>{toastMessage}</Toast.Body>
       </Toast>
       <Card className={"my-1 rounded "} style={{ width: "100%" }}>
         <Card.Body className='d-flex justify-content-center align-items-center'>
@@ -71,6 +89,10 @@ const AddTodo = () => {
             onInput={(e) => onInput(e)}
             ref={Inputref}
             placeholder='Add Todo...'
+            onFocus={() => {
+              setFilter(false);
+              unfilterCurrent();
+            }}
           />
 
           <Button className='ml-1' variant='primary' onClick={AddNewTodo}>

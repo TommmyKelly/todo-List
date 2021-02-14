@@ -35,16 +35,27 @@ export default (state, action) => {
               }
             : todo
         ),
+        filtered: state.filtered.map((todo) =>
+          todo.id === action.payload.id
+            ? {
+                id: todo.id,
+                todo: action.payload.text,
+                completed: todo.completed,
+              }
+            : todo
+        ),
         modal: false,
       };
     case DELETE_TODO:
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
+        filtered: state.filtered.filter((todo) => todo.id !== action.payload),
       };
     case FILTER_TODO:
       return {
         ...state,
+        filteredResult: true,
         filtered: state.todos.filter((todo) => {
           const regex = new RegExp(`${action.payload}`, "gi");
           return todo.todo.match(regex);
@@ -54,6 +65,7 @@ export default (state, action) => {
       return {
         ...state,
         filtered: [],
+        filteredResult: false,
       };
     case CHECKED_TODO:
       return {

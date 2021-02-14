@@ -27,6 +27,8 @@ const TodosState = (props) => {
     test: null,
 
     filtered: [],
+
+    filteredResult: false,
   };
 
   const [state, dispatch] = useReducer(TodosReducer, initialState);
@@ -122,6 +124,7 @@ const TodosState = (props) => {
         ModalID: state.ModalID,
         test: state.test,
         filtered: state.filtered,
+        filteredResult: state.filteredResult,
         getTodos,
         addTodo,
         deleteTodo,
