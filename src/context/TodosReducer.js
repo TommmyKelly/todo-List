@@ -22,6 +22,7 @@ export default (state, action) => {
       return {
         ...state,
         todos: [action.payload, ...state.todos],
+        filteredResult: false,
       };
     case UPDATE_TODO:
       return {

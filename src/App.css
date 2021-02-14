@@ -1,5 +1,14 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+.search__input:focus {
+  border: none;
+  outline: none;
+}
+
+.clear__button:hover {
+  transform: scale(1.2);
+}
+
 /* .card {
   background-color: green;
 } */
