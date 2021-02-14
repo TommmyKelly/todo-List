@@ -79,6 +79,15 @@ export default (state, action) => {
               }
             : todo
         ),
+        filtered: state.filtered.map((todo) =>
+          todo.id === action.payload
+            ? {
+                id: todo.id,
+                todo: todo.todo,
+                completed: !todo.completed,
+              }
+            : todo
+        ),
       };
     case SHOW_MODAL:
       return {
