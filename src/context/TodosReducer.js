@@ -59,7 +59,7 @@ export default (state, action) => {
         filtered: state.todos.filter((todo) =>
           //const regex = new RegExp(`${action.payload}`, "gi");
           //return todo.todo.match(regex);
-          todo.todo.includes(action.payload)
+          todo.todo.toLowerCase().includes(action.payload.toLowerCase())
         ),
       };
     case CLEAR_FILTER:
