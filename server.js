@@ -17,4 +17,13 @@ app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, console.log(`Listening on port ${port}`.yellow.bold));
+const server = app.listen(
+  port,
+  console.log(`Listening on port ${port}`.yellow.bold)
+);
+
+process.on("unhandledRejection", (err, promise) => {
+  console.log(`Error: ${err.message}`.red);
+  //Close server and exit process
+  server.close(() => process.exit(1));
+});
